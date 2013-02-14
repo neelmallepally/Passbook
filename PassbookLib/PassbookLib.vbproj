@@ -71,7 +71,7 @@
     <Compile Include="Concrete\Coupon.vb" />
     <Compile Include="Field.vb" />
     <Compile Include="Image.vb" />
-    <Compile Include="IPass.vb" />
+    <Compile Include="Interface\IPass.vb" />
     <Compile Include="JsonHelper.vb" />
     <Compile Include="Location.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -89,7 +89,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Pass.vb" />
+    <Compile Include="Concrete\Pass.vb" />
     <Compile Include="Passbook.vb" />
     <Compile Include="PassbookImage.vb" />
     <Compile Include="PassStyle.vb" />
@@ -114,9 +114,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
