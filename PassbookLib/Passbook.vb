@@ -9,8 +9,8 @@
 
 
   Public Function Generate() As Byte()
-    CreatePackage()
-    ZipPackage()
+    'CreatePackage()
+    'ZipPackage()
 
     Return _pkPassfile
   End Function
