@@ -26,7 +26,7 @@ Public Interface IPass
 
   Property Images As Dictionary(Of String, Byte())
 
-  Property Fields As Dictionary(Of String, Dictionary(Of String, String))
+  Property Fields As Dictionary(Of String, Dictionary(Of String, Object))
 
   Property PassFile As Byte()
 

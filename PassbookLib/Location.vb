@@ -1,6 +1,6 @@
 ﻿
 Public Class Location
-  Property Latitude As String
-  Property Longitude As String
+  Property Latitude As Double
+  Property Longitude As Double
 
 End Class

@@ -66,12 +66,12 @@ Public Class Coupon
     End Set
   End Property
 
-  Private _fields As System.Collections.Generic.Dictionary(Of String, System.Collections.Generic.Dictionary(Of String, String))
-  Public Property Fields As System.Collections.Generic.Dictionary(Of String, System.Collections.Generic.Dictionary(Of String, String)) Implements IPass.Fields
+  Private _fields As System.Collections.Generic.Dictionary(Of String, System.Collections.Generic.Dictionary(Of String, Object))
+  Public Property Fields As System.Collections.Generic.Dictionary(Of String, System.Collections.Generic.Dictionary(Of String, Object)) Implements IPass.Fields
     Get
       Return _fields
     End Get
-    Set(value As System.Collections.Generic.Dictionary(Of String, System.Collections.Generic.Dictionary(Of String, String)))
+    Set(value As System.Collections.Generic.Dictionary(Of String, System.Collections.Generic.Dictionary(Of String, Object)))
       _fields = value
     End Set
   End Property
@@ -242,12 +242,12 @@ Public Class Coupon
     For Each field In _fields
       writer.WritePropertyName(field.Key)
       writer.WriteStartArray()
+      writer.WriteStartObject()
       For Each subField In field.Value
-        writer.WriteStartObject()
         writer.WritePropertyName(subField.Key)
         writer.WriteValue(subField.Value)
-        writer.WriteEndObject()
       Next
+      writer.WriteEndObject()
       writer.WriteEndArray()
     Next
     writer.WriteEndObject() 'End of Coupon Specific data
