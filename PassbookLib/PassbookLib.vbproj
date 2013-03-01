@@ -76,7 +76,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Barcode.vb" />
+    <Compile Include="Concrete\BoardingPass.vb" />
     <Compile Include="Concrete\Coupon.vb" />
+    <Compile Include="Concrete\IPassStyle.vb" />
+    <Compile Include="Concrete\Pass.vb" />
+    <Compile Include="Custom Attributes\DisplayNameAttribute.vb" />
     <Compile Include="Interface\IPass.vb" />
     <Compile Include="Location.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -96,6 +100,7 @@
     </Compile>
     <Compile Include="Passbook.vb" />
     <Compile Include="PassbookImage.vb" />
+    <Compile Include="Utils\PassStyleJsonConverter.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

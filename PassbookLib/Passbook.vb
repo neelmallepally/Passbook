@@ -69,6 +69,7 @@ Public Class Passbook
     Dim sw As StringWriter = New StringWriter(sb)
 
     Using writer As JsonWriter = New JsonTextWriter(sw)
+      writer.Formatting = Formatting.Indented
       IPass.Write(writer)
       IPass.PassFileData = sb.ToString()
       IPass.PassFile = Encoding.Unicode.GetBytes(sb.ToString())
@@ -110,90 +111,6 @@ Public Class Passbook
       sw.WriteLine(json)
       _IPass.ManifestFile = Encoding.Unicode.GetBytes(json)
     End Using
-
-  End Sub
-
-  Private Sub GenerateManifestFile(IPass As IPass)
-
-    Using ms As MemoryStream = New MemoryStream()
-      Using sw As StreamWriter = New StreamWriter(ms)
-        Using JsonWriter As JsonWriter = New JsonTextWriter(sw)
-          JsonWriter.Formatting = Formatting.Indented
-          JsonWriter.WriteStartObject()
-
-          Dim hash As String = Nothing
-
-          If (IPass.Images.ContainsKey(PassbookImage.Icon)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.Icon))
-            JsonWriter.WritePropertyName(PassbookImage.Icon)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          If (IPass.Images.ContainsKey(PassbookImage.IconRetina)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.IconRetina))
-            JsonWriter.WritePropertyName(PassbookImage.IconRetina)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          If (IPass.Images.ContainsKey(PassbookImage.Logo)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.Logo))
-            JsonWriter.WritePropertyName(PassbookImage.Logo)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          If (IPass.Images.ContainsKey(PassbookImage.LogoRetina)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.LogoRetina))
-            JsonWriter.WritePropertyName(PassbookImage.LogoRetina)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          If (IPass.Images.ContainsKey(PassbookImage.Strip)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.Strip))
-            JsonWriter.WritePropertyName(PassbookImage.Strip)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          If (IPass.Images.ContainsKey(PassbookImage.StripRetina)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.StripRetina))
-            JsonWriter.WritePropertyName(PassbookImage.StripRetina)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          If (IPass.Images.ContainsKey(PassbookImage.Thumbnail)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.Thumbnail))
-            JsonWriter.WritePropertyName(PassbookImage.Thumbnail)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          If (IPass.Images.ContainsKey(PassbookImage.ThumbnailRetina)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.ThumbnailRetina))
-            JsonWriter.WritePropertyName(PassbookImage.ThumbnailRetina)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          If (IPass.Images.ContainsKey(PassbookImage.Background)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.Background))
-            JsonWriter.WritePropertyName(PassbookImage.Background)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          If (IPass.Images.ContainsKey(PassbookImage.BackgroundRetina)) Then
-            hash = GetHasForBytes(IPass.Images(PassbookImage.BackgroundRetina))
-            JsonWriter.WritePropertyName(PassbookImage.BackgroundRetina)
-            JsonWriter.WriteValue(hash.ToLower())
-          End If
-
-          hash = GetHasForBytes(IPass.PassFile)
-          JsonWriter.WritePropertyName("pass.json")
-          JsonWriter.WriteValue(hash.ToLower())
-        End Using
-
-        IPass.ManifestFile = ms.ToArray()
-
-      End Using
-    End Using
-
-    'SignManifestFile(IPass)
 
   End Sub
 
