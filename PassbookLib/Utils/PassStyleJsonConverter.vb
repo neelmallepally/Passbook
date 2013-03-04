@@ -11,8 +11,7 @@ Public Class PassStyleJsonConverter
   End Function
 
   Public Overrides Sub WriteJson(writer As Newtonsoft.Json.JsonWriter, value As Object, serializer As Newtonsoft.Json.JsonSerializer)
-
-
-  End Sub
+        serializer.Serialize(writer, value)
+    End Sub
 
 End Class

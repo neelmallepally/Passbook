@@ -5,6 +5,12 @@ Public Class DisplayNameAttribute
   Private _name As String
   Public Sub New(name As String)
     Me._name = name
-  End Sub
+    End Sub
+
+    Public ReadOnly Property Name() As String
+        Get
+            Return Me._name
+        End Get
+    End Property
 
 End Class

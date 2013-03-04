@@ -5,103 +5,103 @@ Public Class Pass
 
   ''STANDARD KEYS
   Private _description As String
-  <JsonProperty("description", NullValueHandling:=NullValueHandling.Ignore)>
-  Public Property Description() As String
-    Get
-      Return _description
-    End Get
-    Set(ByVal value As String)
-      _description = value
-    End Set
-  End Property
+    <JsonProperty("description", Order:=-10, NullValueHandling:=NullValueHandling.Ignore)>
+    Public Property Description() As String
+        Get
+            Return _description
+        End Get
+        Set(ByVal value As String)
+            _description = value
+        End Set
+    End Property
 
   Private _formatVersion As Integer = 1
-  <JsonProperty("formatVersion", Order:=-10, NullValueHandling:=NullValueHandling.Ignore)>
+    <JsonProperty("formatVersion", Order:=-9, NullValueHandling:=NullValueHandling.Ignore)>
   Public ReadOnly Property FormatVersion() As Integer
-    Get
-      Return _formatVersion
-    End Get
-  End Property
+        Get
+            Return _formatVersion
+        End Get
+    End Property
 
   Private _organizationName As String
-  <JsonProperty("organizationName", NullValueHandling:=NullValueHandling.Ignore)>
+    <JsonProperty("organizationName", Order:=-8, NullValueHandling:=NullValueHandling.Ignore)>
   Public Property OrganizationName() As String
-    Get
-      Return _organizationName
-    End Get
-    Set(ByVal value As String)
-      _organizationName = value
-    End Set
-  End Property
+        Get
+            Return _organizationName
+        End Get
+        Set(ByVal value As String)
+            _organizationName = value
+        End Set
+    End Property
 
   Private _passTypeIdentifier As String
-  <JsonProperty("passTypeIdentifier", NullValueHandling:=NullValueHandling.Ignore)>
-  Public Property PassTypeIdentifier() As String
-    Get
-      Return _passTypeIdentifier
-    End Get
-    Set(ByVal value As String)
-      _passTypeIdentifier = value
-    End Set
-  End Property
+    <JsonProperty("passTypeIdentifier", order:=-7, NullValueHandling:=NullValueHandling.Ignore)>
+    Public Property PassTypeIdentifier() As String
+        Get
+            Return _passTypeIdentifier
+        End Get
+        Set(ByVal value As String)
+            _passTypeIdentifier = value
+        End Set
+    End Property
 
   Private _serialNumber As String
-  <JsonProperty("serialNumber", NullValueHandling:=NullValueHandling.Ignore)>
+    <JsonProperty("serialNumber", Order:=-6, NullValueHandling:=NullValueHandling.Ignore)>
   Public Property SerialNumber() As String
-    Get
-      Return _serialNumber
-    End Get
-    Set(ByVal value As String)
-      _serialNumber = value
-    End Set
-  End Property
+        Get
+            Return _serialNumber
+        End Get
+        Set(ByVal value As String)
+            _serialNumber = value
+        End Set
+    End Property
 
   Private _teamIdentifier As String
-  <JsonProperty("teamIdentifier", NullValueHandling:=NullValueHandling.Ignore)>
-  Public Property TeamIdentifier() As String
-    Get
-      Return _teamIdentifier
-    End Get
-    Set(ByVal value As String)
-      _teamIdentifier = value
-    End Set
-  End Property
+    <JsonProperty("teamIdentifier", Order:=-5, NullValueHandling:=NullValueHandling.Ignore)>
+    Public Property TeamIdentifier() As String
+        Get
+            Return _teamIdentifier
+        End Get
+        Set(ByVal value As String)
+            _teamIdentifier = value
+        End Set
+    End Property
 
   'RELEVANCE KEYS
   Private _locations As System.Collections.Generic.List(Of Location)
-  <JsonProperty("locations", NullValueHandling:=NullValueHandling.Ignore)>
+    <JsonProperty("locations", Order:=-4, NullValueHandling:=NullValueHandling.Ignore)>
   Public Property Locations As System.Collections.Generic.List(Of Location)
-    Get
-      Return _locations
-    End Get
-    Set(value As System.Collections.Generic.List(Of Location))
-      _locations = value
-    End Set
-  End Property
+        Get
+            Return _locations
+        End Get
+        Set(value As System.Collections.Generic.List(Of Location))
+            _locations = value
+        End Set
+    End Property
 
   'W3C date
   Private _relevantDate As String
-  <JsonProperty("relevantDate", NullValueHandling:=NullValueHandling.Ignore)>
-  Public Property RelevantDate() As String
-    Get
-      Return _relevantDate
-    End Get
-    Set(ByVal value As String)
-      _relevantDate = value
-    End Set
-  End Property
+    <JsonProperty("relevantDate", Order:=-4, NullValueHandling:=NullValueHandling.Ignore)>
+    Public Property RelevantDate() As String
+        Get
+            Return _relevantDate
+        End Get
+        Set(ByVal value As String)
+            _relevantDate = value
+        End Set
+    End Property
 
   'Visual appearance keys
   Private _barcode As Barcode
-  <JsonProperty("barcode", NullValueHandling:=NullValueHandling.Ignore)>
+    <JsonProperty("barcode", Order:=-3, NullValueHandling:=NullValueHandling.Ignore)>
   Public Property Barcode() As Barcode
-    Get
-      Return _barcode
-    End Get
-    Set(ByVal value As Barcode)
-      _barcode = value
-    End Set
-  End Property
+        Get
+            Return _barcode
+        End Get
+        Set(ByVal value As Barcode)
+            _barcode = value
+        End Set
+    End Property
 
   Private _backgroundColor As String
   <JsonProperty("backgroundColor", NullValueHandling:=NullValueHandling.Ignore)>
@@ -181,14 +181,29 @@ Public Class Pass
     End Set
   End Property
 
-  Private _passStyle As IPassStyle
-  Public Property PassStyle() As IPassStyle
-    Get
-      Return _passStyle
-    End Get
-    Set(ByVal value As IPassStyle)
-      _passStyle = value
-    End Set
-  End Property
+    Private _passStyle As IPassStyle
+    <JsonProperty(Order:=1, NullValueHandling:=NullValueHandling.Ignore)>
+    Public Property PassStyle() As IPassStyle
+        Get
+            Return _passStyle
+        End Get
+        Set(ByVal value As IPassStyle)
+            _passStyle = value
+        End Set
+    End Property
+
+    Public Sub New(passStyle As IPassStyle)
+        _passStyle = passStyle
+    End Sub
+
+    Public Function PassJson() As String
+        If (Me._passStyle IsNot Nothing) Then
+            Dim info As System.Reflection.MemberInfo = Me._passStyle.GetType()
+            Dim atts = info.GetCustomAttributes(GetType(DisplayNameAttribute), True)
+
+            Return JsonConvert.SerializeObject(Me, Formatting.None).Replace("PassStyle", atts(0).Name)
+        End If
+        Return Nothing
+    End Function
 
 End Class

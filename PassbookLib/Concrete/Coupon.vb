@@ -6,7 +6,7 @@ Imports Newtonsoft.Json
 Public Class Coupon
   Implements IPass
 
-  Private _AuthenticationToken As String
+    Private _AuthenticationToken As String
   Public Property AuthenticationToken As String Implements IPass.AuthenticationToken
     Get
       Return _AuthenticationToken
